@@ -1,0 +1,27 @@
+index:
+    path: /
+    controller: App\Controller\LoginController::logout
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout
+
+home:
+    path: /home
+    controller: App\Controller\HomeController::index
+
+register:
+    path: /register
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    methods: [GET]
+    defaults:
+        template: static/signup.html.twig
+
+postregister:
+    path: /register
+    controller: App\Controller\LoginController::postregister
+    methods: [POST]

@@ -1,0 +1,78 @@
+{% extends 'base-offline.html.twig' %}
+
+{% block title %} Register {% endblock %}
+
+{% block style_background %} 
+    style="background-image:url(http://noahmillsonline.com/wp-content/uploads/2018/05/wallpaper-hd-paysages-1920-x-1080-sur-le-forum-blabla-18-25-ans-con-fond-d-cran-hd-paysage-e-1438620192-wallhaven-60060-1920x1080px-fond-d-cran-hd-paysage.jpg)"
+{% endblock %}
+
+
+{% block formulaire %}
+    <form method="GET">
+        <div class="form-group">
+            <label class="text-normal text-dark">Firstname</label> 
+            <input type="text" name="firstname" class="form-control" placeholder="John">
+        </div>
+        <div class="form-group">
+            <label class="text-normal text-dark">Lastname</label> 
+            <input type="text" name="lastname" class="form-control" placeholder="Doe">
+        </div>
+        <div class="form-group">
+            <label class="text-normal text-dark">Email</label> 
+            <input type="email" name="email" class="form-control" placeholder="JohnDoe@msn.com">
+        </div>
+        <div class="form-group">
+            <label class="text-normal text-dark">Password</label> 
+            <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label class="text-normal text-dark">Phone tel</label> 
+            <input type="tel" name="tel" class="form-control" placeholder="0615234569">
+        </div>
+        <div class="form-group">
+            <div class="peers ai-c jc-sb fxw-nw">
+                <div class="peer">
+                <div class="peers ai-c"> 
+                    <a href="/login">
+                    <label for="inputCall1" class="peers peer-greed js-sb ai-c"><span class="peer peer-greed">Etes-vous déja inscrits ?</span></label>
+                    </a>
+                </div>
+            </div>
+            <div class="peer">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+<p id="message"></p>
+{% endblock %}
+{% block javascript %}
+<script>
+$(document).ready(function(){
+    $("form").submit(function(){
+        event.preventDefault();
+        let isVide=false;
+        for(let i=0 ; i < $("form input").length; i++){
+            if($("form input").eq(i).val().length < 1){
+                isVide=true;
+            }
+        }
+
+        if(!isVide){
+            let data= $(this).serialize();
+
+            $.post("/register", data, function(data) {
+                $("form").css("display", "none");
+                //$("form").hide() ; >>>> une autre possibilité.
+                $("#message").text("Redirection vers la page Login dans 3 secondes.");
+                setTimeout(function(){
+                    document.location.href="/login";
+                }, 3000);
+                console.log(data) ;
+            });
+        }else{
+            alert("Il y a des champs obligatoires vides.");
+        }
+    })
+})
+    </script>
+{% endblock %}
